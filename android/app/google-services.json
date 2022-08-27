@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "207845172814",
+    "project_id": "randlin-chat",
+    "storage_bucket": "randlin-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207845172814:android:73a50f1d85ace98a2cc51f",
+        "android_client_info": {
+          "package_name": "com.example.my_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207845172814-494qcnr0qqi93oklo99tkfnphidecvjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWdWgFD5VYKZRahdS9Qy5sV4fefyEBVHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207845172814-494qcnr0qqi93oklo99tkfnphidecvjh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
