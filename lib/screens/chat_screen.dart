@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_chat/widgets/%D1%81hats/new_message.dart';
+import '../widgets/сhats/messages.dart';
+import '../widgets/сhats/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: Firestore.instance
-            .collection('chats/HmKpmsgN2MD9MXwCf27D/messages')
-            .snapshots(),
-        builder: (ctx, streamSnapshot) {
-          if (streamSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final documents = streamSnapshot.data.documents;
-          return ListView.builder(
-              itemCount: documents.length,
-              itemBuilder: (ctx, index) => Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(documents[index]['text']),
-                  ));
-        },
+      appBar: AppBar(
+        title: const Text('MyChat'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: FirebaseAuth.instance.signOut,
+          )
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Firestore.instance
-              .collection('chats/HmKpmsgN2MD9MXwCf27D/messages')
-              .add({'text': 'The button was clicked'});
-        },
-      ),
+      body: Container(
+          child: Column(
+        children: const [
+          Expanded(child: Messages()),
+          NewMessage(),
+        ],
+      )),
     );
   }
 }
