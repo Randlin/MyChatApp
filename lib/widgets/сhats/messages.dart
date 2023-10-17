@@ -6,11 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  const Messages({Key key}) : super(key: key);
+  const Messages();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FirebaseAuth.instance.currentUser(),
+        future: Future<User>.value(FirebaseAuth.instance.currentUser),
         builder: (context, fSnapshot) {
           if (fSnapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -18,7 +18,7 @@ class Messages extends StatelessWidget {
             );
           }
           return StreamBuilder(
-              stream: Firestore.instance
+              stream: FirebaseFirestore.instance
                   .collection('chat')
                   .orderBy('createdAt', descending: true)
                   .snapshots(),
@@ -26,15 +26,15 @@ class Messages extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                final chatDocs = snapshot.data.documents;
+                final chatDocs = snapshot.data?.docs;
                 return ListView.builder(
                     reverse: true,
-                    itemCount: chatDocs.length,
+                    itemCount: chatDocs?.length,
                     itemBuilder: (context, index) => MessageBubble(
-                          chatDocs[index]['text'],
-                          chatDocs[index]['userId'] == fSnapshot.data.uid,
-                          chatDocs[index]['userId'],
-                          key: ValueKey(chatDocs[index].documentID),
+                          chatDocs?[index]['text'],
+                          chatDocs?[index]['userId'] ==
+                              fSnapshot.data.toString(),
+                          chatDocs?[index]['userId'],
                         ));
               });
         });

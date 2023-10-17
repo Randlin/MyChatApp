@@ -20,10 +20,10 @@ class _AuthFormState extends State<AuthForm> {
   String _userUsername = '';
   String _userPass = '';
   void _trySubmit() {
-    final isValid = _formKey.currentState.validate();
+    final isValid = _formKey.currentState?.validate();
     FocusScope.of(context).unfocus();
-    if (isValid) {
-      _formKey.currentState.save();
+    if (isValid!) {
+      _formKey.currentState?.save();
       widget.submitFn(_userEmail.trim(), _userPass.trim(), _userUsername.trim(),
           _isLogin, context);
     }
@@ -45,13 +45,13 @@ class _AuthFormState extends State<AuthForm> {
                   TextFormField(
                     key: const ValueKey('email'),
                     validator: (value) {
-                      if (value.isEmpty || !value.contains('@')) {
+                      if (value!.isEmpty || !value.contains('@')) {
                         return 'Enter a valid email adderss';
                       }
                       return null;
                     },
                     onSaved: (newValue) {
-                      _userEmail = newValue;
+                      _userEmail = newValue!;
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration:
@@ -61,26 +61,26 @@ class _AuthFormState extends State<AuthForm> {
                     TextFormField(
                         key: const ValueKey('username'),
                         validator: (value) {
-                          if (value.isEmpty || value.length < 2) {
+                          if (value!.isEmpty || value!.length < 2) {
                             return 'Username must containg at least 2 characters.';
                           }
                           return null;
                         },
                         onSaved: (newValue) {
-                          _userUsername = newValue;
+                          _userUsername = newValue!;
                         },
                         decoration:
                             const InputDecoration(labelText: 'Username')),
                   TextFormField(
                     key: const ValueKey('password'),
                     validator: (value) {
-                      if (value.isEmpty || value.length < 6) {
+                      if (value!.isEmpty || value!.length < 6) {
                         return 'Password must containg at least 6 characters.';
                       }
                       return null;
                     },
                     onSaved: (newValue) {
-                      _userPass = newValue;
+                      _userPass = newValue!;
                     },
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
@@ -88,11 +88,10 @@ class _AuthFormState extends State<AuthForm> {
                   const SizedBox(
                     height: 12,
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                       onPressed: _trySubmit,
                       child: Text(_isLogin ? 'Login' : 'Sign up')),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
+                  ElevatedButton(
                     onPressed: () {
                       setState(() {
                         _isLogin = !_isLogin;
