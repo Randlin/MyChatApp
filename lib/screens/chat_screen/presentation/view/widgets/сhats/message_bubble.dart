@@ -1,21 +1,20 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble(this.message, this.isMe, this.userId);
+  const MessageBubble(this.message, this.isMe, this.userId, {super.key});
   final String message;
   final bool isMe;
   final String userId;
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _usersStream =
-        FirebaseFirestore.instance.collection('users').snapshots();
+    // final Stream<QuerySnapshot> _usersStream =
+    //     FirebaseFirestore.instance.collection('users').snapshots();
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
+          constraints: const BoxConstraints(maxWidth: 140),
           decoration: BoxDecoration(
             color: isMe
                 ? Colors.grey[300]
@@ -29,7 +28,6 @@ class MessageBubble extends StatelessWidget {
                   isMe ? const Radius.circular(0) : const Radius.circular(12),
             ),
           ),
-          width: 140,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: Column(
